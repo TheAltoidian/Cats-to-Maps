@@ -34,19 +34,22 @@ what3words.api.convertToCoordinates("tugging.owls.racked")
     });
 
 
-document.getElementById("startW3W").addEventListener("click", function () {
+document.getElementById("startW3W").addEventListener("click", function (event) {
     var userInput = document.getElementById("words").value;
     console.log(userInput);
     document.getElementById("instructions").textContent = "";
     what3words.api.convertToCoordinates(userInput)
         .then(function (response) {
             console.log(response.coordinates);
-            map.setView(response.coordinates);
-})
+            map.setView(response.coordinates);  
+            document.getElementById('coordinates').textContent = userLat + ',' + userLng;
+        })
         .catch(function (error) {
             console.log(error.message);
             document.getElementById("instructions").textContent=error.message;
         })
+    savedLocationsArray.push(userInput);
+    saveLocations ();
 });
 
 // initialize the map on the "map" div with a given center and zoom
@@ -64,6 +67,17 @@ document.getElementById("startW3W").addEventListener("click", function () {
 //     zoomOffset: -1,
 //     accessToken: 'your.mapbox.access.token'
 // }).addTo(map);
+
+
+
+// array to hold the stored locations
+var savedLocationsArray = [];
+
+// function to add locations into localStorage
+var saveLocations = function () {
+    localStorage.setItem('location', JSON.stringify(savedLocationsArray));
+};
+
 
 
 //generate a random number

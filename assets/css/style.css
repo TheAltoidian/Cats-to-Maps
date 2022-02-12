@@ -1,4 +1,7 @@
-#map { height: 1000px; }
+#map { 
+    height: 100em;
+    width: 100em;
+}
 
 * {
     margin: 0;
@@ -37,21 +40,22 @@ h3 {
     background-size: cover;
     background-position: center;
     position: relative;
+    
 }
 
-.flex-container > div {
+.columns {
     background-color: rgba(255, 255, 255, 0.644);
-    margin: 10px;
-    padding: 30px;
   }
-  }
+
 
 
 section {
-    padding: 100px;
+    padding: 10px;
+    margin: 10px;
 }
 
 footer {
     width: 100%;
     padding: 40px 35px;
+    background-color: #4ea87d;
 }
