@@ -33,7 +33,7 @@ h3 {
 
 .hero {
     background-image: url("../images/domestic-cats-kitten-playing-with-globe-11429CS-U.jpg");
-    height: 400px;
+    height: 550px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -44,14 +44,14 @@ h3 {
     margin: 10px;
     padding: 30px;
   }
-  }
 
 
-section {
+
+/* section {
     padding: 100px;
 }
 
 footer {
     width: 100%;
     padding: 40px 35px;
-}
+} */
