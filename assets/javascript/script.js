@@ -3,6 +3,14 @@ var factDisplay = document.getElementById("catFact");
 var userLat;
 var userLng;
 var map;
+var previousWords = JSON.parse(localStorage.getItem("previousWords"));
+var savedData = [];
+var userInput;
+
+// lists previous combinations of words
+var listPrevious = function () {
+    document.getElementById("locationHistory").textContent = previousWords;
+}
 
 /**
  * Returns coordinates for a 3 word address
@@ -33,19 +41,39 @@ what3words.api.convertToCoordinates("tugging.owls.racked")
 
     });
 
+// update local storage
+var storageUpdate = function() {
+    // console.log("check1");
+    if (previousWords.length<5) {
+        // console.log("check2");
+        previousWords.push(userInput);
+    }
+    else {
+        for (let i = 0; i<4; i++) {
+            // console.log("i="+i);
+            // console.log("previousWords[i]=" + previousWords[i]);
+            previousWords[i] = previousWords[i+1];
+        }
+        previousWords[4]=userInput;
+    }
+    document.getElementById("locationHistory").textContent=previousWords;
+    localStorage.setItem("previousWords", JSON.stringify(previousWords));
+};
+
 
 document.getElementById("startW3W").addEventListener("click", function () {
-    var userInput = document.getElementById("words").value;
+    userInput = document.getElementById("words").value;
     console.log(userInput);
     document.getElementById("instructions").textContent = "";
     what3words.api.convertToCoordinates(userInput)
         .then(function (response) {
             console.log(response.coordinates);
             map.setView(response.coordinates);
-})
+            storageUpdate();
+        })
         .catch(function (error) {
             console.log(error.message);
-            document.getElementById("instructions").textContent=error.message;
+            document.getElementById("instructions").textContent = error.message;
         })
 });
 
@@ -82,3 +110,5 @@ fetch(fact)
         // console.log(data)
         factDisplay.textContent = data[RNG(0, 4)].text
     })
+
+listPrevious();
